@@ -1,18 +1,24 @@
 # java-racingcar-precourse
 
+---
+
 ## 기능목록
 
-### 경주할 자동차의 이름을 입력받는 기능
-    - param: void (console input)
+---
+
+### + 사용자 입력을 받는 기능
+
+### + 사용자 입력을 검증하는 기능
+
+### 경주할 자동차의 이름을 파싱하는 기능
+    - param: String
     - return: List<String>
 
-#### + 경주할 자동차의 이름 입력을 검증하는 기능
+### + 경주할 자동차의 이름 길이를 검증하는 기능
 
-### 시도할 횟수를 입력받는 기능
-    - param: void (console input)
-    - return: long
+### + 시도할 횟수 입력을 검증하는 기능
 
-#### + 시도할 횟수 입력을 검증하는 기능
+---
 
 ### 모든 자동차에 대해 1회 전진을 시도하는 기능
     - param: Map<String, Long>
