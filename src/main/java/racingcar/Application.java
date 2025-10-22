@@ -1,8 +1,12 @@
 package racingcar;
 
 import camp.nextstep.edu.missionutils.Console;
+import camp.nextstep.edu.missionutils.Randoms;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 public class Application {
     public static void main(String[] args) {
@@ -13,7 +17,23 @@ public class Application {
         long attemptNumber = Long.parseLong(validateAttemptNumberInput(validateUserInput(Console.readLine())));
         Console.close();
 
+        final Map<String, Long> raceResult = carNamesInOrder.stream()
+                .collect(Collectors.toMap(car -> car, car -> 0L));
 
+        for (long attemptCurrentCount = 0; attemptCurrentCount < attemptNumber; attemptCurrentCount++) {
+            attemptMoveForwardAllCars(raceResult);
+        }
+
+    }
+
+    private static void attemptMoveForwardAllCars(Map<String, Long> raceResult) {
+        raceResult.keySet().forEach(car -> attemptMoveForwardOneCar(raceResult, car));
+    }
+
+    private static void attemptMoveForwardOneCar(Map<String, Long> raceResult, String car) {
+        if(Randoms.pickNumberInRange(1, 8) >= 4){
+            raceResult.put(car, raceResult.get(car) + 1);
+        }
     }
 
     private static String validateUserInput(String userInput) {
