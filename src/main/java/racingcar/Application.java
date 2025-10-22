@@ -3,7 +3,6 @@ package racingcar;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -20,10 +19,28 @@ public class Application {
         final Map<String, Long> raceResult = carNamesInOrder.stream()
                 .collect(Collectors.toMap(car -> car, car -> 0L));
 
+        System.out.println("\n실행 결과");
         for (long attemptCurrentCount = 0; attemptCurrentCount < attemptNumber; attemptCurrentCount++) {
             attemptMoveForwardAllCars(raceResult);
+
+            printRaceResult(carNamesInOrder, raceResult);
         }
 
+    }
+
+    private static void printRaceResult(List<String> carNamesInOrder, Map<String, Long> raceResult) {
+        for (String car : carNamesInOrder) {
+            final StringBuilder bar = new StringBuilder();
+            makeResultBar(raceResult, car, bar);
+            System.out.format("%s : %s%n", car, bar);
+        }
+        System.out.println();
+    }
+
+    private static void makeResultBar(Map<String, Long> raceResult, String car, StringBuilder bar) {
+        for (long resultBarCount = 0; resultBarCount < raceResult.get(car); resultBarCount++) {
+            bar.append("-");
+        }
     }
 
     private static void attemptMoveForwardAllCars(Map<String, Long> raceResult) {
