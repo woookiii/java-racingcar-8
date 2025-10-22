@@ -18,10 +18,18 @@ public class Application {
         String userInput = Console.readLine();
         Console.close();
 
+        validateAttemptNumberInput(userInput);
 
         return Long.parseLong(userInput);
     }
 
+    private static void validateAttemptNumberInput(String userInput) {
+        boolean isNumeric = userInput.chars().allMatch(Character::isDigit);
+
+        if(!isNumeric || userInput.isEmpty()) {
+            throw new IllegalArgumentException("잘못된 입력입니다.");
+        }
+    }
 
     private static List<String> guideCarNamesInput() {
         System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
