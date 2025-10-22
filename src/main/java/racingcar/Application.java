@@ -7,7 +7,7 @@ import java.util.List;
 public class Application {
     public static void main(String[] args) {
         System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
-        List<String> carNamesInOrder = parseCarNames(validateUserInput(getUserInput()));
+        List<String> carNamesInOrder = validateCarNamesLength(parseCarNames(validateUserInput(getUserInput())));
 
         System.out.println("시도할 횟수는 몇 회인가요?");
         long attemptNumber = Long.parseLong(validateAttemptNumberInput(validateUserInput(getUserInput())));
@@ -45,6 +45,16 @@ public class Application {
         return carNamesInOrder;
     }
 
+    private static List<String> validateCarNamesLength(List<String> carNames) {
+        for (String carName : carNames) {
+            if(carName.length() <= 5) {
+                continue;
+            } else {
+                throw new IllegalArgumentException("잘못된 입력입니다.");
+            }
+        }
 
+        return carNames;
+    }
 
 }
