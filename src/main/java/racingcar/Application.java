@@ -11,10 +11,10 @@ import java.util.stream.Collectors;
 public class Application {
     public static void main(String[] args) {
         System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
-        List<String> carNamesInOrder = validateCarNamesLength(parseCarNames(validateUserInput(Console.readLine())));
+        final List<String> carNamesInOrder = validateCarNamesLength(parseCarNames(validateUserInput(Console.readLine())));
 
         System.out.println("시도할 횟수는 몇 회인가요?");
-        long attemptNumber = Long.parseLong(validateAttemptNumberInput(validateUserInput(Console.readLine())));
+        final long attemptNumber = Long.parseLong(validateAttemptNumberInput(validateUserInput(Console.readLine())));
         Console.close();
 
         final Map<String, Long> raceResult = carNamesInOrder.stream()
@@ -44,7 +44,7 @@ public class Application {
     }
 
     private static String validateAttemptNumberInput(String userInput) {
-        boolean isNumeric = userInput.chars().allMatch(Character::isDigit);
+        final boolean isNumeric = userInput.chars().allMatch(Character::isDigit);
 
         if(!isNumeric) {
             throw new IllegalArgumentException("잘못된 입력입니다.");
@@ -54,7 +54,7 @@ public class Application {
     }
 
     private static List<String> parseCarNames(String userInput) {
-        List<String> carNamesInOrder = List.of(userInput.split(","));
+        final List<String> carNamesInOrder = List.of(userInput.split(","));
 
         return carNamesInOrder;
     }
