@@ -4,7 +4,7 @@
 
 ### 경주할 자동차의 이름을 입력받는 기능
     - param: void (console input)
-    - return: Map<String, Long>
+    - return: List<String>
 
 ### 시도할 횟수를 입력받는 기능
     - param: void (console input)
