@@ -3,21 +3,22 @@ package racingcar;
 import camp.nextstep.edu.missionutils.Console;
 import camp.nextstep.edu.missionutils.Randoms;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 import java.util.stream.Collectors;
 
 public class Application {
     public static void main(String[] args) {
         System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
-        final List<String> carNamesInOrder = validateCarNamesLength(parseCarNames(validateUserInput(Console.readLine())));
+        final List<String> carNamesInOrder = validateCarNames(parseCarNames(validateUserInput(Console.readLine())));
 
         System.out.println("시도할 횟수는 몇 회인가요?");
         final long attemptNumber = Long.parseLong(validateAttemptNumberInput(validateUserInput(Console.readLine())));
         Console.close();
 
-        final Map<String, Long> raceResult = carNamesInOrder.stream()
-                .collect(Collectors.toMap(car -> car, car -> 0L));
+        final List<Long> raceResult = carNamesInOrder.stream()
+                .map(car -> 0L)
+                .collect(Collectors.toList());
 
         System.out.println("\n실행 결과");
         for (long attemptCurrentCount = 0; attemptCurrentCount < attemptNumber; attemptCurrentCount++) {
@@ -46,35 +47,42 @@ public class Application {
         winnerString.delete(winnerString.length() - 2, winnerString.length());
     }
 
-    private static List<String> findRaceWinner(List<String> carNamesInOrder, Map<String, Long> raceResult) {
-        final long maxDistance = raceResult.values().stream().max(Long::compare).orElse(0L);
-        return carNamesInOrder.stream()
-                .filter(car -> raceResult.get(car) == maxDistance)
-                .collect(Collectors.toList());
+    private static List<String> findRaceWinner(List<String> carNamesInOrder, List<Long> raceResult) {
+        final long maxDistance = raceResult.stream().max(Long::compare).orElse(0L);
+        List<String> winnerInOrder = new ArrayList<>();
+        for (int currentCarIndex = 0; currentCarIndex < raceResult.size(); currentCarIndex++) {
+            if(raceResult.get(currentCarIndex) == maxDistance){
+                winnerInOrder.add(carNamesInOrder.get(currentCarIndex));
+            }
+        }
+        return winnerInOrder;
     }
 
-    private static void printRaceResult(List<String> carNamesInOrder, Map<String, Long> raceResult) {
-        for (String car : carNamesInOrder) {
+    private static void printRaceResult(List<String> carNamesInOrder, List<Long> raceResult) {
+        for (int currentCarIndex = 0; currentCarIndex < raceResult.size(); currentCarIndex++) {
             final StringBuilder bar = new StringBuilder();
-            makeResultBar(raceResult, car, bar);
-            System.out.format("%s : %s%n", car, bar);
+            makeResultBar(raceResult, currentCarIndex, bar);
+            System.out.format("%s : %s%n", carNamesInOrder.get(currentCarIndex), bar);
         }
         System.out.println();
     }
 
-    private static void makeResultBar(Map<String, Long> raceResult, String car, StringBuilder bar) {
-        for (long resultBarCount = 0; resultBarCount < raceResult.get(car); resultBarCount++) {
+    private static void makeResultBar(List<Long> raceResult, int currentCarIndex, StringBuilder bar) {
+        long currentCarDistance = raceResult.get(currentCarIndex);
+        for (long resultBarCount = 0; resultBarCount < currentCarDistance; resultBarCount++) {
             bar.append("-");
         }
     }
 
-    private static void attemptMoveForwardAllCars(Map<String, Long> raceResult) {
-        raceResult.keySet().forEach(car -> attemptMoveForwardOneCar(raceResult, car));
+    private static void attemptMoveForwardAllCars(List<Long> raceResult) {
+        for (int currentCarIndex = 0; currentCarIndex < raceResult.size(); currentCarIndex++) {
+            attemptMoveForwardOneCar(raceResult, currentCarIndex);
+        }
     }
 
-    private static void attemptMoveForwardOneCar(Map<String, Long> raceResult, String car) {
+    private static void attemptMoveForwardOneCar(List<Long> raceResult, int currentCarIndex) {
         if(Randoms.pickNumberInRange(1, 8) >= 4){
-            raceResult.put(car, raceResult.get(car) + 1);
+            raceResult.set(currentCarIndex, raceResult.get(currentCarIndex) + 1);
         }
     }
 
@@ -101,7 +109,11 @@ public class Application {
         return carNamesInOrder;
     }
 
-    private static List<String> validateCarNamesLength(List<String> carNames) {
+    private static List<String> validateCarNames(List<String> carNames) {
+        if(carNames.isEmpty()) {
+            throw new IllegalArgumentException("잘못된 입력입니다.");
+        }
+
         for (String carName : carNames) {
             if(carName.length() <= 5) {
                 continue;
