@@ -28,14 +28,26 @@ public class Application {
 
         List<String> raceWinnerInOrder = findRaceWinner(carNamesInOrder, raceResult);
 
+        announceWinner(raceWinnerInOrder);
+    }
 
+    private static void announceWinner(List<String> raceWinnerInOrder) {
+        final StringBuilder winnerString = new StringBuilder();
+        makeWinnerString(raceWinnerInOrder, winnerString);
 
+        System.out.format("최종 우승자 : %s", winnerString);
+    }
 
-
+    private static void makeWinnerString(List<String> raceWinnerInOrder, StringBuilder winnerString) {
+        for (String car : raceWinnerInOrder) {
+            winnerString.append(car);
+            winnerString.append(", ");
+        }
+        winnerString.delete(winnerString.length() - 2, winnerString.length());
     }
 
     private static List<String> findRaceWinner(List<String> carNamesInOrder, Map<String, Long> raceResult) {
-        long maxDistance = raceResult.values().stream().max(Long::compare).orElse(0L);
+        final long maxDistance = raceResult.values().stream().max(Long::compare).orElse(0L);
         return carNamesInOrder.stream()
                 .filter(car -> raceResult.get(car) == maxDistance)
                 .collect(Collectors.toList());
