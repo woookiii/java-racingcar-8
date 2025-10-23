@@ -5,7 +5,6 @@ import racingcar.factory.RacingStringFactory;
 
 import java.util.List;
 
-
 public class RacingView {
 
     RacingStringFactory racingStringFactory = new RacingStringFactory();

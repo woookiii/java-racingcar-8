@@ -7,6 +7,10 @@ import racingcar.view.RacingView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static racingcar.boundary.MoveForwardCondition.MOVE_FORWARD_MIN;
+import static racingcar.boundary.RandomConstants.START_INCLUSIVE;
+import static racingcar.boundary.RandomConstants.END_INCLUSIVE;
+
 public class RacingService {
 
     private final RacingView racingView = new RacingView();
@@ -37,7 +41,7 @@ public class RacingService {
     }
 
     private static void attemptMoveForwardOneCar(Car car) {
-        if(Randoms.pickNumberInRange(1, 8) >= 4){
+        if(Randoms.pickNumberInRange(START_INCLUSIVE, END_INCLUSIVE) >= MOVE_FORWARD_MIN){
             car.moveForward();
         }
     }

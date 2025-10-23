@@ -2,6 +2,8 @@ package racingcar.inputhandler;
 
 import java.util.List;
 
+import static racingcar.boundary.CarNameLength.CAR_NAME_MAX_LENGTH;
+
 public class InputValidator {
 
     public void validateUserInput(String userInput) {
@@ -21,7 +23,7 @@ public class InputValidator {
     }
 
     private void validateCarNameLength(String carName) {
-        if(carName.length() <= 5) {
+        if(carName.length() <= CAR_NAME_MAX_LENGTH) {
             return;
         } else {
             throw new IllegalArgumentException("잘못된 입력입니다.");
