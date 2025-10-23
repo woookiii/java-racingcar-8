@@ -26,8 +26,19 @@ public class Application {
             printRaceResult(carNamesInOrder, raceResult);
         }
 
+        List<String> raceWinnerInOrder = findRaceWinner(carNamesInOrder, raceResult);
 
 
+
+
+
+    }
+
+    private static List<String> findRaceWinner(List<String> carNamesInOrder, Map<String, Long> raceResult) {
+        long maxDistance = raceResult.values().stream().max(Long::compare).orElse(0L);
+        return carNamesInOrder.stream()
+                .filter(car -> raceResult.get(car) == maxDistance)
+                .collect(Collectors.toList());
     }
 
     private static void printRaceResult(List<String> carNamesInOrder, Map<String, Long> raceResult) {
