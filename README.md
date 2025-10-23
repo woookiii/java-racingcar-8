@@ -18,15 +18,14 @@
 
 ### + 시도할 횟수 입력을 검증하는 기능
 
----~~
-~~
+---
+
 ### 모든 자동차에 대해 1회 전진을 시도하는 기능
     - param: Map<String, Long>
-    - return: Map<String, Long>
 
 ### 시도 이후 실행결과를 한 단계 출력하는 기능
-    - param: Map<String, Long>
-    - return: void (console output)
+
+---
 
 ### 최종 우승자를 선발하는 기능
     - using long max variable

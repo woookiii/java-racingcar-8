@@ -26,6 +26,8 @@ public class Application {
             printRaceResult(carNamesInOrder, raceResult);
         }
 
+
+
     }
 
     private static void printRaceResult(List<String> carNamesInOrder, Map<String, Long> raceResult) {
