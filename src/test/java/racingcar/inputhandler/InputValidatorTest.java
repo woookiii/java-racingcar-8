@@ -32,13 +32,13 @@ class InputValidatorTest {
 
     @Test
     void validateCarNames_not_throws_exception_given_list_is_filled() {
-        validator.validateCarNames(List.of("Ford", "BMW"));
+        validator.validateCarNames(List.of("Kim", "Lee"));
     }
 
 
     @Test
     void validateCarNames_throws_exception_given_name_length_is_longer_than_car_name_max_length() {
-        List<String> carNames = List.of("1","2","123456");
+        List<String> carNames = List.of("Kim","Lee","Alexander");
         assertThatThrownBy(() -> validator.validateCarNames(carNames))
                 .isInstanceOf(IllegalArgumentException.class)
                 .hasMessage("잘못된 입력입니다.");
@@ -46,7 +46,7 @@ class InputValidatorTest {
 
     @Test
     void validateCarNames_not_throws_exception_given_names_length_is_not_longer_than_car_name_max_length() {
-        validator.validateCarNames(List.of("Ford", "BMW"));
+        validator.validateCarNames(List.of("Kim", "Lee"));
     }
 
     @Test

@@ -15,15 +15,14 @@ class RacingStringFactoryTest {
     @Test
     void makeWinnerString_with_given_winners() {
         List<Car> winners = Arrays.asList(
-                new Car(0, "Kim"),
-                new Car(1, "Lee"),
-                new Car(2, "Park")
+                new Car(0, "Kim", 5L),
+                new Car(1, "Lee", 5L)
         );
         StringBuilder sb = new StringBuilder();
 
         racingStringFactory.makeWinnerString(winners, sb);
 
-        assertThat(sb.toString()).isEqualTo("Kim, Lee, Park");
+        assertThat(sb.toString()).isEqualTo("Kim, Lee");
     }
 
     @Test
