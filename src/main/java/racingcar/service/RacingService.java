@@ -34,13 +34,13 @@ public class RacingService {
         }
     }
 
-    private static void attemptMoveForwardAllCars(List<Car> carList) {
+    private void attemptMoveForwardAllCars(List<Car> carList) {
         for (Car car : carList) {
             attemptMoveForwardOneCar(car);
         }
     }
 
-    private static void attemptMoveForwardOneCar(Car car) {
+    private void attemptMoveForwardOneCar(Car car) {
         if(Randoms.pickNumberInRange(START_INCLUSIVE, END_INCLUSIVE) >= MOVE_FORWARD_MIN){
             car.moveForward();
         }
